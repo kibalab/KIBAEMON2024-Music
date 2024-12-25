@@ -1,0 +1,160 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Music\\KIBAEMON2024-Music.csproj": {}
+  },
+  "projects": {
+    "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Core\\KIBAEMON2024-Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Core\\KIBAEMON2024-Core.csproj",
+        "projectName": "KIBAEMON2024-Core",
+        "projectPath": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Core\\KIBAEMON2024-Core.csproj",
+        "packagesPath": "C:\\Users\\kjh03\\.nuget\\packages\\",
+        "outputPath": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\kjh03\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Discord.Net": {
+              "target": "Package",
+              "version": "[3.16.0, )"
+            },
+            "Discord.Net.Core": {
+              "target": "Package",
+              "version": "[3.16.0, )"
+            },
+            "Discord.Net.Extensions": {
+              "target": "Package",
+              "version": "[1.2.1, )"
+            },
+            "Discord.Net.WebSocket": {
+              "target": "Package",
+              "version": "[3.16.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Music\\KIBAEMON2024-Music.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Music\\KIBAEMON2024-Music.csproj",
+        "projectName": "KIBAEMON2024-Music",
+        "projectPath": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Music\\KIBAEMON2024-Music.csproj",
+        "packagesPath": "C:\\Users\\kjh03\\.nuget\\packages\\",
+        "outputPath": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Music\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\kjh03\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Core\\KIBAEMON2024-Core.csproj": {
+                "projectPath": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Core\\KIBAEMON2024-Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Discord.Net.WebSocket": {
+              "target": "Package",
+              "version": "[3.16.0, )"
+            },
+            "YoutubeExplode": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

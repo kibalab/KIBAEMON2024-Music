@@ -1,0 +1,15 @@
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\bin\Debug\net8.0\KIBAEMON2024-Music.deps.json
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\bin\Debug\net8.0\KIBAEMON2024-Music.dll
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\bin\Debug\net8.0\KIBAEMON2024-Music.pdb
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\bin\Debug\net8.0\KIBAEMON2024-Core.dll
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\bin\Debug\net8.0\KIBAEMON2024-Core.pdb
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON2024-Music.csproj.AssemblyReference.cache
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON2024-Music.GeneratedMSBuildEditorConfig.editorconfig
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON2024-Music.AssemblyInfoInputs.cache
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON2024-Music.AssemblyInfo.cs
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON2024-Music.csproj.CoreCompileInputs.cache
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON.760B8E10.Up2Date
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON2024-Music.dll
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\refint\KIBAEMON2024-Music.dll
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\KIBAEMON2024-Music.pdb
+F:\OtherProjects\KIBAEMON2024\KIBAEMON2024-Music\obj\Debug\net8.0\ref\KIBAEMON2024-Music.dll

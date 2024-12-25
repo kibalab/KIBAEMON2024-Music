@@ -17,10 +17,24 @@ public static class PlatformManager
         return new MemoryStream();
     }
 
-    public static async Task<string> DownloadPreview(string url)
+    public static async Task<string> DownloadPreview(string url, AudioTrack track)
     {
         var solver = PlatformSolvers.FirstOrDefault(solver => solver.IsMine(url));
-        if (solver is not null) return await solver.DownloadPreview(url);
+        if (solver is not null)
+        {
+            var path = await solver.DownloadPreview(url);
+            try
+            {
+                await solver.ProcessPreview(path, track);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return path;
+        }
 
         return url;
     }
@@ -41,6 +55,7 @@ public interface IPlatformSolver
     public Task<Stream> Solve(string url);
 
     public Task<string> DownloadPreview(string url);
+    Task ProcessPreview(string url, AudioTrack track);
 
     Task<AudioTrack> FetchTrackInfo(string url);
 }

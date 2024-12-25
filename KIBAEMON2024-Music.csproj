@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="Discord.Net.WebSocket" Version="3.16.0" />
+      <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="14.2.0" />
       <PackageReference Include="YoutubeExplode" Version="6.5.0" />
     </ItemGroup>
 

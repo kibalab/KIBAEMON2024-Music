@@ -22,7 +22,7 @@ public class AudioPlayerService : IAudioPlayerService
         {
             _ = Task.Run(async () =>
             {
-                var path = await PlatformManager.DownloadPreview(queryUrl);
+                var path = await PlatformManager.DownloadPreview(queryUrl, track);
                 await textChannel.SendFileAsync(path);
             });
 

@@ -131,6 +131,10 @@
               "target": "Package",
               "version": "[3.16.0, )"
             },
+            "Magick.NET-Q16-AnyCPU": {
+              "target": "Package",
+              "version": "[14.2.0, )"
+            },
             "YoutubeExplode": {
               "target": "Package",
               "version": "[6.5.0, )"

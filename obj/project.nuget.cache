@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FY3YKIU3KPw=",
+  "dgSpecHash": "WPJvAcbB57o=",
   "success": true,
   "projectFilePath": "F:\\OtherProjects\\KIBAEMON2024\\KIBAEMON2024-Music\\KIBAEMON2024-Music.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,8 @@
     "C:\\Users\\kjh03\\.nuget\\packages\\discord.net.rest\\3.16.0\\discord.net.rest.3.16.0.nupkg.sha512",
     "C:\\Users\\kjh03\\.nuget\\packages\\discord.net.webhook\\3.16.0\\discord.net.webhook.3.16.0.nupkg.sha512",
     "C:\\Users\\kjh03\\.nuget\\packages\\discord.net.websocket\\3.16.0\\discord.net.websocket.3.16.0.nupkg.sha512",
+    "C:\\Users\\kjh03\\.nuget\\packages\\magick.net-q16-anycpu\\14.2.0\\magick.net-q16-anycpu.14.2.0.nupkg.sha512",
+    "C:\\Users\\kjh03\\.nuget\\packages\\magick.net.core\\14.2.0\\magick.net.core.14.2.0.nupkg.sha512",
     "C:\\Users\\kjh03\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\9.0.0\\microsoft.bcl.asyncinterfaces.9.0.0.nupkg.sha512",
     "C:\\Users\\kjh03\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\kjh03\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",

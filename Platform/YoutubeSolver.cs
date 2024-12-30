@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
-using System.Text;
-using ImageMagick;
-using ImageMagick.Drawing;
+using OpenCvSharp;
 using YoutubeExplode;
 
 namespace KIBAEMON2024_Audio;
@@ -113,57 +111,145 @@ public class YoutubeSolver : IPlatformSolver
     public async Task ProcessPreview(string path, AudioTrack track)
     {
         var watch = Stopwatch.StartNew();
-        using var collection = new MagickImageCollection(path);
-        collection.Coalesce();
-        var framesList = collection.Select(f => new MagickImage(f)).ToArray();
 
-        var background = new MagickImage(new FileInfo(".//PlayerTemplateF3.png"));
-        var width = background.Width;
-        var height = background.Height;
+        // 1) GIF 파일로부터 모든 프레임 읽어오기
+        using var capture = new VideoCapture(path);
 
-        Parallel.ForEach(framesList, new ParallelOptions()
+        // 총 프레임 수 및 FPS
+        int frameCount = (int)capture.Get(VideoCaptureProperties.FrameCount);
+        double fps = capture.Get(VideoCaptureProperties.Fps);
+
+        // 혹은 FPS가 0으로 잡히면 기본값으로 설정
+        if (fps <= 0) fps = 10;
+
+        // 2) 배경 이미지 로드 (PNG)
+        Mat background = Cv2.ImRead(".//PlayerTemplateF3.png");
+        int width = background.Width;
+        int height = background.Height;
+
+        var frames = new List<Mat>();
+
+        // GIF 프레임들을 리스트로 추출
+        for (int i = 0; i < frameCount; i++)
         {
-            MaxDegreeOfParallelism = Environment.ProcessorCount * 4,
-        }, frame =>
-        {
-            var preview = frame.Clone();
-            preview.Resize(width, height);
-            preview.Crop(width - 18, 448, Gravity.Center);
+            var frame = new Mat();
+            bool success = capture.Read(frame);
+            if (!success)
+                break;
 
-            frame.Alpha(AlphaOption.Transparent);
-            frame.Resize(width, height);
-            frame.Composite(background, CompositeOperator.Replace);
-            frame.Composite(preview, 9, 9, CompositeOperator.Over);
-
-            var drawables = new Drawables()
-                .TextEncoding(Encoding.UTF8)
-                .Font("Microsoft YaHei & Microsoft YaHei UI")
-                .FontPointSize(17)
-                .StrokeWidth(0)
-                .FillColor(MagickColors.White)
-                .TextAlignment(TextAlignment.Left)
-                .FontPointSize(28)
-                .Text(25, frame.Height - 170, $"{track.Title}")
-                .FontPointSize(28)
-                .Text(120, frame.Height - 70, $"{track.Author}")
-                .FontPointSize(28)
-                .Text(frame.Width - 460, frame.Height - 70, $"{track.Requester}")
-                .EnableTextAntialias();
-            drawables.Draw(frame);
-        });
-
-        using var resultCollection = new MagickImageCollection();
-        foreach (var frame in framesList)
-        {
-            resultCollection.Add(frame);
+            // OpenCV에서 Read한 프레임은 내부 버퍼가 바뀔 수 있으므로 Clone() 해서 리스트에 보관
+            frames.Add(frame.Clone());
         }
 
-        resultCollection.OptimizePlus();
+        capture.Release(); // 모든 프레임 추출 후 닫기
 
-        await resultCollection.WriteAsync(path);
+        // 3) 병렬로 각 프레임 처리
+        Parallel.ForEach(frames, new ParallelOptions
+            {
+                MaxDegreeOfParallelism = Environment.ProcessorCount * 4
+            },
+            frame =>
+            {
+                // (a) preview = frame.Clone()
+                Mat preview = frame.Clone();
+
+                // (b) preview.Resize(width, height)
+                Cv2.Resize(preview, preview, new Size(width, height));
+
+                // (c) preview.Crop(width - 18, 448, Gravity.Center) 와 유사한 처리
+                //    - Gravity.Center는 중앙 기준으로 crop하는 것을 의미하므로,
+                //      여기서는 단순히 중앙을 기준으로 Rect를 계산합니다.
+                int cropW = width - 18;
+                int cropH = 448;
+                int offsetX = (preview.Width - cropW) / 2;
+                int offsetY = (preview.Height - cropH) / 2;
+                // 범위 보호
+                offsetX = Math.Max(0, offsetX);
+                offsetY = Math.Max(0, offsetY);
+                cropW = Math.Min(cropW, preview.Width - offsetX);
+                cropH = Math.Min(cropH, preview.Height - offsetY);
+
+                var cropRect = new Rect(offsetX, offsetY, cropW, cropH);
+                Mat croppedPreview = new Mat(preview, cropRect);
+
+                // (d) 원본코드 frame.Alpha(AlphaOption.Transparent) → 
+                //     OpenCV에서는 RGBA를 다루거나 별도의 마스크 연산이 필요.
+                //     이 예제에선 알파 처리 부분 생략(불투명으로 처리).
+
+                // (e) frame.Resize(width, height)
+                Cv2.Resize(frame, frame, new Size(width, height));
+
+                // (f) frame.Composite(background, CompositeOperator.Replace)
+                //     - 배경을 frame 위에 "전부 교체"하는 효과이므로, background를 통째로 복사
+                background.CopyTo(frame);
+
+                // (g) frame.Composite(preview, 9, 9, CompositeOperator.Over)
+                //     - preview 이미지를 (9, 9) 위치에 합성
+                //     - OpenCV에선 ROI를 이용하거나, 부분 Mat에 CopyTo
+                if (9 + croppedPreview.Width <= frame.Width &&
+                    9 + croppedPreview.Height <= frame.Height)
+                {
+                    var roi = new Rect(9, 9, croppedPreview.Width, croppedPreview.Height);
+                    croppedPreview.CopyTo(frame[roi]);
+                }
+
+                // (h) 텍스트 그리기
+                //     - Magick.NET에서의 Drawables() → OpenCV에서는 Cv2.PutText 등을 이용
+                //     - 폰트나 정렬, 문자열 인코딩 등은 환경에 맞춰 조정하세요.
+
+                // 제목
+                Cv2.PutText(frame,
+                    track.Title ?? "",
+                    new Point(25, frame.Height - 170), // 좌표
+                    HersheyFonts.HersheySimplex, // 폰트
+                    1.0, // 폰트 스케일
+                    Scalar.White, // 글자 색
+                    2, // 두께
+                    LineTypes.AntiAlias);
+
+                // 작곡가/가수
+                Cv2.PutText(frame,
+                    track.Author ?? "",
+                    new Point(120, frame.Height - 70),
+                    HersheyFonts.HersheySimplex,
+                    1.0,
+                    Scalar.White,
+                    2,
+                    LineTypes.AntiAlias);
+
+                // 요청자
+                Cv2.PutText(frame,
+                    track.Requester ?? "",
+                    new Point(frame.Width - 460, frame.Height - 70),
+                    HersheyFonts.HersheySimplex,
+                    1.0,
+                    Scalar.White,
+                    2,
+                    LineTypes.AntiAlias);
+            });
+
+        // 4) 최종 출력
+        //    OpenCVSharp는 애니메이션 GIF 직저장이 불가능하므로, 여기서는 MP4로 저장 예시
+        //    (ffmpeg 등 추가 사용 시 GIF로 변환 가능)
+        string outputFile = Path.ChangeExtension(path, ".mp4");
+
+        // mp4 인코더 설정 (Windows 환경 가정)
+        int fourcc = VideoWriter.FourCC('m', 'p', '4', 'v');
+        using var writer = new VideoWriter(outputFile, fourcc, fps, new OpenCvSharp.Size(width, height));
+
+        foreach (var frame in frames)
+        {
+            writer.Write(frame);
+        }
+
+        writer.Release();
 
         watch.Stop();
         Console.WriteLine($"Thumbnail processing took {watch.ElapsedMilliseconds}ms");
+
+        // 만약 GIF로 내보내야 한다면, 별도의 라이브러리나 ffmpeg 등을 통해
+        // frames 리스트를 GIF로 인코딩하는 로직을 직접 작성해야 합니다.
+        await Task.CompletedTask;
     }
 
     public async Task<AudioTrack> FetchTrackInfo(string url)

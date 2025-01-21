@@ -1,7 +1,7 @@
 ﻿using Discord.WebSocket;
 using KIBAEMON2024_Core.Struct;
 
-namespace KIBAEMON2024_Audio;
+namespace KIBAEMON2024_Music;
 
 public interface IAudioPlayerService : IService
 {

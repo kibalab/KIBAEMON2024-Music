@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-namespace KIBAEMON2024_Audio;
+namespace KIBAEMON2024_Music;
 
 public class AudioQueue
 {

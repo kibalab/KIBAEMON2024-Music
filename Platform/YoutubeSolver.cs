@@ -2,7 +2,7 @@
 using OpenCvSharp;
 using YoutubeExplode;
 
-namespace KIBAEMON2024_Audio;
+namespace KIBAEMON2024_Music.Platform;
 
 public class YoutubeSolver : IPlatformSolver
 {

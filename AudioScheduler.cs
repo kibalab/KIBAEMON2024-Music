@@ -1,12 +1,12 @@
 ﻿#nullable enable
 
-using System.Diagnostics;
 using Discord.Audio;
 using Discord.WebSocket;
 using KIBAEMON2024_Core.Extension;
+using KIBAEMON2024_Music.Platform;
 using ConnectionState = Discord.ConnectionState;
 
-namespace KIBAEMON2024_Audio;
+namespace KIBAEMON2024_Music;
 
 public class AudioScheduler(ISocketMessageChannel textChannel)
 {
